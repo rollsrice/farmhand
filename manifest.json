@@ -1,0 +1,23 @@
+{
+
+    "manifest_version": 2,
+    "name": "FarmRPG",
+    "version": "1.0",
+  
+    "description": "Helpful scripts for FarmRPG",
+  
+    "icons": {
+      "48": "icons/border-48.png"
+    },
+    "permissions": [
+      "storage"
+    ],
+  
+    "content_scripts": [
+      {
+        "matches": ["*://*.farmrpg.com/*"],
+        "js": ["farmrpg.js"]
+      }
+    ]
+  
+  }
