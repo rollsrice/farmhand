@@ -2,7 +2,7 @@ document.body.style.border = "5px solid red"
 var maxInventory = "880"
 
 function restoreInventory() {
-    localStorage.setItem('crystal', 1)
+    localStorage.setItem('space crstal', 1)
 
     var root = document.createElement("div")
     document.getElementsByClassName('page-content')[0].appendChild(root)
@@ -27,6 +27,9 @@ function updateInventoryButton() {
     var updateInventoryButton = document.createElement("button")
     updateInventoryButton.textContent = "Update Inventory"
     updateInventoryButton.setAttribute("margin", "4px 4px 4px 4px")
+    updateInventoryButton.onclick = function(event) {
+        updateInventoryCounts()
+    }
     var div = document.createElement("div")
     div.style.paddingBottom = "8px"
     div.appendChild(updateInventoryButton)
@@ -47,14 +50,22 @@ function inventoryItem() {
 }
 
 
-// function updateInventoryCounts() {
-//     var items = document.getElementsByClassName("page-on-center")[0].getElementsByClassName("list-block")[0].getElementsByClassName("item-link"))
-//     for (let item in items) {
-//         var itemName = item.getElementsByClassName("item-title")[0].getElementsByTagName("strong")[0]
-//         var itemCount = item.getElementsByClassName("item-after")[0].textContent
-//         localStorage.set(itemName, parseInt(itemCount))
-//     }
-// }
+function updateInventoryCounts() {
+    var page = document.getElementsByClassName("page-on-center")[0]
+    if (page.getAttribute("data-page") === "inventory") {
+        var items = Array.from(page.getElementsByClassName("list-block")[0].getElementsByClassName("item-link"))
+        // console.log(items.length + " items found")
+        // console.log(items)
+        items.forEach(item  => {
+            var itemName = item.getElementsByClassName("item-title")[0].getElementsByTagName("strong")[0].textContent
+            var itemCount = parseInt(item.getElementsByClassName("item-after")[0].textContent)
+            // console.log(itemName + " " + itemCount)
+            localStorage.setItem(itemName, itemCount)
+        })
+    } else {
+        console.log("Not on inventory page")
+    }
+}
 
 if (document.readyState !== 'loading') {
     restoreInventory()
