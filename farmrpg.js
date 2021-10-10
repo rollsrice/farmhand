@@ -71,6 +71,7 @@ function updateInventoryButton() {
     updateInventoryButton.onclick = function (event) {
         updateInventoryCounts()
         alert("Inventory counts updated")
+        maybeRemoveExistingItemList()
     }
     var div = document.createElement("div")
     div.style.paddingBottom = "8px"
