@@ -272,9 +272,37 @@ var mtbanon = [
     "Unpolished Shimmer Stone"
 ]
 
+let blackrockcanyon = [
+    "Ancient Coin",
+    "Coal",
+    "Giant Centipede",
+    "Horn",
+    "Medium Chest 02",
+    "Large Chest 02",
+    "Runestone 09",
+    "Runestone 13",
+    "Sandstone",
+    "Shimmer Quartz"
+]
+
+let emberlagoon = [
+    "Ancient Coin",
+    "Diamond",
+    "Emberstone",
+    "Glass Orb",
+    "Large Chest 01",
+    "Magicite",
+    "Moonstone",
+    "Prism Shard",
+    "Runestone 17",
+    "Stone"
+]
+
 var explores = {
     "Forest": forest,
     "Cane Pole Ridge": canepoleridge,
     "Misty Forest": mistyforest,
     "Mount Banon": mtbanon,
+    "Ember Lagoon": emberlagoon,
+    "Black Rock Canyon": blackrockcanyon
 }

@@ -84,7 +84,22 @@ let itemUrls = {
     "spider_t_01": "Spider",
     "fourleaf": "4-leaf Clover",
     "beetle": "Shiny Beetle",
-    "rs5": "Runestone 05"
+    "rs5": "Runestone 05",
+    "8166": "Emberstone",
+    "8072": "Prism Shard",
+    "6019": "Ancient Coin",
+    "5708": "Glass Orb",
+    "7963": "Magicite",
+    "8014": "Moonstone",
+    "coal": "Coal",
+    "5197": "Sandstone",
+    "6111": "Horn",
+    "5707": "Shimmer Quartz",
+    "giantcent": "Giant Centipede",
+    "8572": "Large Chest 02",
+    "rs13": "Runestone 13",
+    "rs9": "Runestone 09"
+
 }
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/StreamFilter/ondata
