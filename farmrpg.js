@@ -1,4 +1,4 @@
-document.body.style.border = "5px solid red"
+// document.body.style.border = "5px solid red"
 var maxInventory = 890
 var navigationDelay = 1000
 
@@ -70,7 +70,7 @@ function updateInventoryButton() {
     updateInventoryButton.setAttribute("margin", "4px 4px 4px 4px")
     updateInventoryButton.onclick = function (event) {
         updateInventoryCounts()
-        console.log("inventory updated")
+        alert("Inventory counts updated")
     }
     var div = document.createElement("div")
     div.style.paddingBottom = "8px"
