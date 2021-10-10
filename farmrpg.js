@@ -4,29 +4,27 @@ var navigationDelay = 1000
 
 var root
 
-function getUpdatedContextualInventory() {
+function updateContextualInventory() {
     var navbar = document.getElementsByClassName("view-main")[0].getElementsByClassName("navbar-on-center")[0]
+    maybeRemoveExistingItemList()
     if (navbar != null) {
         var location = navbar.getElementsByClassName("center")[0].childNodes[0].textContent.trim()
         var itemList = explores[location]
         if (itemList != null && root != null) {
-            var existingList = root.getElementsByTagName("ul")
-            if (existingList != null && existingList.length > 0) {
-                console.log("removing existing list")
-                root.removeChild(existingList)
-            }
-            console.log(
-                "appending"
-            )
-            root.append(inventory())
-
+            root.append(inventory(itemList))
         } else {
             console.log("No items or cannot find contextual inventory section")
         }
     } else {
         console.log("Not on valid page")
     }
-    return []
+}
+
+function maybeRemoveExistingItemList() {
+    var existingList = root.getElementsByTagName("ul")
+    if (existingList != null && existingList.length > 0) {
+        root.removeChild(existingList)
+    }
 }
 
 function title() {
@@ -51,30 +49,30 @@ function updateInventoryButton() {
     return div
 }
 
-function inventory() {
+function inventory(items) {
     var inventoryList = document.createElement("ul")
-    inventoryList.id = "contextual-item-list"
-    inventoryList.appendChild(inventoryItem())
+
+    items.forEach(item => {
+        inventoryList.appendChild(inventoryItem(item))
+    })
+
     return inventoryList
 }
 
-function inventoryItem() {
-    var item = document.createElement("li")
-    var itemCount = localStorage.getItem('crystal') + "/" + maxInventory
-    item.appendChild(document.createTextNode("Crystal: " + itemCount))
-    return item
+function inventoryItem(itemName) {
+    var itemNode = document.createElement("li")
+    var itemCount = localStorage.getItem(itemName) + "/" + maxInventory
+    itemNode.appendChild(document.createTextNode(itemName + ": " + itemCount))
+    return itemNode
 }
 
 function updateInventoryCounts() {
     var page = document.getElementsByClassName("page-on-center")[0]
     if (page.getAttribute("data-page") === "inventory") {
         var items = Array.from(page.getElementsByClassName("list-block")[0].getElementsByClassName("item-link"))
-        // console.log(items.length + " items found")
-        // console.log(items)
         items.forEach(item => {
             var itemName = item.getElementsByClassName("item-title")[0].getElementsByTagName("strong")[0].textContent
             var itemCount = parseInt(item.getElementsByClassName("item-after")[0].textContent)
-            // console.log(itemName + " " + itemCount)
             localStorage.setItem(itemName, itemCount)
         })
     } else {
@@ -93,8 +91,10 @@ function restoreInventory() {
 
     root.append(title())
     root.append(updateInventoryButton())
+
+    // Wait for navigation to happen before updating inventory
     setTimeout(function () {
-        root.append(getUpdatedContextualInventory())
+        updateContextualInventory()
     }, navigationDelay)
 }
 
@@ -103,7 +103,7 @@ function registerUpdateContextualInventoryListener() {
         console.log("updating inventory")
         // Wait for navigation to happen before updating inventory
         setTimeout(
-            getUpdatedContextualInventory, navigationDelay
+            updateContextualInventory, navigationDelay
         )
     })
 }
