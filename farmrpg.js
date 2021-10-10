@@ -1,5 +1,5 @@
 document.body.style.border = "5px solid red"
-var maxInventory = "880"
+var maxInventory = 890
 var navigationDelay = 1000
 
 var root
@@ -21,8 +21,8 @@ function updateContextualInventory() {
 }
 
 function maybeRemoveExistingItemList() {
-    var existingList = root.getElementsByTagName("ul")
-    if (existingList != null && existingList.length > 0) {
+    var existingList = root.getElementsByTagName("ul")[0]
+    if (existingList != null) {
         root.removeChild(existingList)
     }
 }
@@ -61,9 +61,22 @@ function inventory(items) {
 
 function inventoryItem(itemName) {
     var itemNode = document.createElement("li")
-    var itemCount = localStorage.getItem(itemName) + "/" + maxInventory
-    itemNode.appendChild(document.createTextNode(itemName + ": " + itemCount))
+    var itemCount = parseInt(localStorage.getItem(itemName))
+    var itemFraction = itemCount + "/" + maxInventory
+    itemNode.appendChild(document.createTextNode(itemName + ": " + itemFraction))
+    itemNode.style.color = inventoryFractionToColor(itemCount)
     return itemNode
+}
+
+function inventoryFractionToColor(itemCount) {
+    color = "White"
+    if (itemCount / maxInventory >= 0.5) {
+        color = "LightSalmon"
+    }
+    if (itemCount === maxInventory) {
+        color = "Tomato"
+    }
+    return color
 }
 
 function updateInventoryCounts() {
@@ -100,7 +113,6 @@ function restoreInventory() {
 
 function registerUpdateContextualInventoryListener() {
     document.addEventListener('click', function (event) {
-        console.log("updating inventory")
         // Wait for navigation to happen before updating inventory
         setTimeout(
             updateContextualInventory, navigationDelay
