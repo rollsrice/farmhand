@@ -1,12 +1,15 @@
 // document.body.style.border = "5px solid red"
 var maxInventory = 892
 var navigationDelay = 1000
+let lastExploreExplore = 2
 
 var root
 
 browser.runtime.onMessage.addListener(request => {
     if (request.event === "refreshContext") {
         setTimeout(updateContextualInventory, navigationDelay)
+    } else if (request.event === "updateLastExplore") {
+        lastExploreExplore = request.exploreId
     } else if (request.event === "updateInventory") {
         if (request.items != null) {
             request.items.forEach((count, item) => {
@@ -126,15 +129,38 @@ function updateInventoryCounts() {
 function restoreInventory() {
     if (root == null) {
         root = document.createElement("div")
+        document.getElementsByClassName('page-content')[0].appendChild(root)
+        root.style.padding = "16px 16px 16px 16px"
     }
-    document.getElementsByClassName('page-content')[0].appendChild(root)
-    root.style.padding = "16px 16px 16px 16px"
 
     root.append(title())
     root.append(updateInventoryButton())
 }
 
+function showGoToLastExplore() {
+    if (root == null) {
+        root = document.createElement("div")
+        document.getElementsByClassName('page-content')[0].appendChild(root)
+    }
+
+    let exploreUrlPrefix = new URL("https://farmrpg.com/#!/area.php")
+    let queryParam = new URLSearchParams({ 'id': lastExploreExplore })
+    let exploreUrl = exploreUrlPrefix.toString() + "?" + queryParam.toString()
+
+    var exploreLastLocationButton = document.createElement("button")
+    exploreLastLocationButton.textContent = "Explore Last Location"
+
+    exploreLastLocationButton.onclick = function (event) {
+        window.location.href = exploreUrl
+    }
+    var div = document.createElement("div")
+    div.style.paddingBottom = "8px"
+    div.appendChild(exploreLastLocationButton)
+    root.append(div)
+}
+
 function init() {
+    showGoToLastExplore()
     restoreInventory()
 }
 

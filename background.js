@@ -1,11 +1,18 @@
 var target = "https://farmrpg.com/worker.php?go=explore*"
 var urlFilter = { urls: [target] }
-var onNewPageUrlFilter = {
+let contextualInventoryFilter = {
     urls: [
         "https://farmrpg.com/area.php*",
         "https://farmrpg.com/pet.php*"
     ]
 }
+
+let exploreFilter = {
+    urls: [
+        "https://farmrpg.com/worker.php?go=explore*"
+    ]
+}
+
 
 var rawData;
 
@@ -127,9 +134,31 @@ var onHeaderReceivedlistener = function (result) {
 }
 browser.webRequest.onHeadersReceived.addListener(
     onHeaderReceivedlistener,
-    urlFilter,
+    exploreFilter,
     ["blocking"]
 );
+
+browser.webRequest.onCompleted.addListener(
+    responseDetails => {
+        let exploreId = new URLSearchParams(new URL(responseDetails.url).search).get('id')
+        browser.tabs.query({
+            currentWindow: true,
+            active: true
+        }).then(tabs => {
+            for (let tab of tabs) {
+                browser.tabs.sendMessage(
+                    tab.id,
+                    {
+                        event: "updateLastExplore",
+                        exploreId: exploreId
+                    }
+                ).catch(onError);
+            }
+        }).catch(onError);
+
+    },
+    exploreFilter
+)
 
 browser.webRequest.onCompleted.addListener(
     responseDetails => {
@@ -147,5 +176,5 @@ browser.webRequest.onCompleted.addListener(
             }
         }).catch(onError);
     },
-    onNewPageUrlFilter
+    contextualInventoryFilter
 )
