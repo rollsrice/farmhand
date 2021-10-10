@@ -239,6 +239,25 @@ var canepoleridge = [
     "Wood"
 ]
 
+let mistyforest = [
+    "3-leaf Clover",
+    "4-leaf Clover",
+    "Acorn",
+    "Amber",
+    "Blue Feathers",
+    "Fern Leaf",
+    "Gold Feather",
+    "Mushroom",
+    "Pine Cone",
+    "Runestone 05",
+    "Shiny Beetle",
+    "Spider",
+    "Straw",
+    "Sweet Root",
+    "Unpolished Ruby",
+    "Wood"
+]
+
 var mtbanon = [
     "Bacon",
     "Carbon Sphere",
@@ -256,5 +275,6 @@ var mtbanon = [
 var explores = {
     "Forest": forest,
     "Cane Pole Ridge": canepoleridge,
+    "Misty Forest": mistyforest,
     "Mount Banon": mtbanon,
 }

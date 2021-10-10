@@ -73,7 +73,18 @@ let itemUrls = {
     "4887": "Pocket Watch",
     "fireant": "Fire Ant",
     "5996": "Gold Feather",
-    "8774": "Gold Leaf"
+    "8774": "Gold Leaf",
+    "5759": "Acorn",
+    "5992": "Unpolished Ruby",
+    "5963": "Blue Feathers",
+    "fern": "Fern Leaf",
+    "8250": "3-leaf Clover",
+    "5685": "Sweet Root",
+    "pinecone2": "Pine Cone",
+    "spider_t_01": "Spider",
+    "fourleaf": "4-leaf Clover",
+    "beetle": "Shiny Beetle",
+    "rs5": "Runestone 05"
 }
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/StreamFilter/ondata
