@@ -3,13 +3,41 @@ var urlFilter = { urls: [target] }
 
 var rawData;
 
+function onError(error) {
+    console.error(`Error: ${error}`);
+}
+
+// https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/sendMessage
+function sendInventoryUpdate(tabs, newItems) {
+    for (let tab of tabs) {
+        browser.tabs.sendMessage(
+            tab.id,
+            {
+                items: newItems
+            }
+        ).catch(onError);
+    }
+}
+
 async function handleExploreResponse(response) {
     var root = document.createElement('html')
     root.innerHTML = response
     var items = Array.from(root.getElementsByTagName('img'))
-    items.forEach(item => {
-        parseItemUrl(item.src)
-    })
+    console.log(items)
+    var newItems = items.map(item => {
+        return parseItemUrl(item.src)
+    }).reduce((itemMap, item) => {
+        let count = itemMap.get(item) || 0
+        count += 1
+        itemMap.set(item, count)
+        return itemMap
+    }, new Map())
+
+    console.log(newItems)
+    browser.tabs.query({
+        currentWindow: true,
+        active: true
+    }).then(tabs => sendInventoryUpdate(tabs, newItems)).catch(onError);
 }
 
 function parseItemUrl(itemUrl) {
@@ -19,8 +47,9 @@ function parseItemUrl(itemUrl) {
     let itemName = itemUrls[itemId]
     if (itemName == null) {
         console.log(itemId + " not added to list of items")
+        return null
     }
-    console.log(itemName)
+    return itemName
 }
 
 let itemUrls = {
@@ -29,7 +58,8 @@ let itemUrls = {
     "6067": "Bird Egg",
     "6143": "Wood",
     "5910": "Arrowhead",
-    "5922": "Antler"
+    "5922": "Antler",
+    "5986": "Hide",
 }
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/StreamFilter/ondata
@@ -40,7 +70,7 @@ var onHeaderReceivedlistener = function (result) {
         let filter = browser.webRequest.filterResponseData(result.requestId);
 
         filter.ondata = event => {
-            let str = decoder.decode(event.data, {stream: true});
+            let str = decoder.decode(event.data, { stream: true });
             handleExploreResponse(str)
             filter.write(encoder.encode(str))
         }

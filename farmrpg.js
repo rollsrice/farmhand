@@ -4,7 +4,23 @@ var navigationDelay = 1000
 
 var root
 
+browser.runtime.onMessage.addListener(request => {
+    console.log(request.items);
+    if (request.items != null) {
+        request.items.forEach((count, item) => {
+            console.log(item)
+            let amount = parseInt(localStorage.getItem(item))
+            console.log(amount)
+            console.log(amount+count)
+            localStorage.setItem(item, Math.min(amount + count, maxInventory))
+        })
+        updateContextualInventory()
+    }
+});
+
 function updateContextualInventory() {
+    console.log("updating")
+    
     let mainView = document.getElementsByClassName("view-main")[0]
     maybeRemoveExistingItemList()
 
@@ -25,7 +41,7 @@ function updateContextualInventory() {
         if (itemList != null && root != null) {
             root.append(inventory(itemList))
         } else {
-            console.log("No items or cannot find contextual inventory section")
+            // console.log("No items or cannot find contextual inventory section")
         }
     } else {
         console.log("Not on valid page")
@@ -54,6 +70,7 @@ function updateInventoryButton() {
     updateInventoryButton.setAttribute("margin", "4px 4px 4px 4px")
     updateInventoryButton.onclick = function (event) {
         updateInventoryCounts()
+        console.log("inventory updated")
     }
     var div = document.createElement("div")
     div.style.paddingBottom = "8px"
@@ -106,8 +123,6 @@ function updateInventoryCounts() {
 }
 
 function restoreInventory() {
-    localStorage.setItem('space crstal', 1)
-
     if (root == null) {
         root = document.createElement("div")
     }
@@ -120,7 +135,7 @@ function restoreInventory() {
     // Wait for navigation to happen before updating inventory
     setTimeout(function () {
         updateContextualInventory()
-    }, navigationDelay)
+    }, navigationDelay+1000)
 }
 
 function registerUpdateContextualInventoryListener() {
