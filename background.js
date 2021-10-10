@@ -1,5 +1,11 @@
 var target = "https://farmrpg.com/worker.php?go=explore*"
 var urlFilter = { urls: [target] }
+var onNewPageUrlFilter = {
+    urls: [
+        "https://farmrpg.com/area.php*",
+        "https://farmrpg.com/pet.php*"
+    ]
+}
 
 var rawData;
 
@@ -13,6 +19,7 @@ function sendInventoryUpdate(tabs, newItems) {
         browser.tabs.sendMessage(
             tab.id,
             {
+                event: "updateInventory",
                 items: newItems
             }
         ).catch(onError);
@@ -23,7 +30,6 @@ async function handleExploreResponse(response) {
     var root = document.createElement('html')
     root.innerHTML = response
     var items = Array.from(root.getElementsByTagName('img'))
-    console.log(items)
     var newItems = items.map(item => {
         return parseItemUrl(item.src)
     }).reduce((itemMap, item) => {
@@ -33,7 +39,6 @@ async function handleExploreResponse(response) {
         return itemMap
     }, new Map())
 
-    console.log(newItems)
     browser.tabs.query({
         currentWindow: true,
         active: true
@@ -85,4 +90,21 @@ browser.webRequest.onHeadersReceived.addListener(
     ["blocking"]
 );
 
-console.log("background running")
+browser.webRequest.onCompleted.addListener(
+    responseDetails => {
+        browser.tabs.query({
+            currentWindow: true,
+            active: true
+        }).then(tabs => {
+            for (let tab of tabs) {
+                browser.tabs.sendMessage(
+                    tab.id,
+                    {
+                        event: "refreshContext"
+                    }
+                ).catch(onError);
+            }
+        }).catch(onError);
+    },
+    onNewPageUrlFilter
+)

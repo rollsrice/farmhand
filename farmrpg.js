@@ -5,28 +5,28 @@ var navigationDelay = 1000
 var root
 
 browser.runtime.onMessage.addListener(request => {
-    console.log(request.items);
-    if (request.items != null) {
-        request.items.forEach((count, item) => {
-            console.log(item)
-            let amount = parseInt(localStorage.getItem(item))
-            console.log(amount)
-            console.log(amount+count)
-            localStorage.setItem(item, Math.min(amount + count, maxInventory))
-        })
-        updateContextualInventory()
+    if (request.event === "refreshContext") {
+        setTimeout(updateContextualInventory, navigationDelay)
+    } else if (request.event === "updateInventory") {
+        if (request.items != null) {
+            request.items.forEach((count, item) => {
+                let amount = parseInt(localStorage.getItem(item))
+                localStorage.setItem(item, Math.min(amount + count, maxInventory))
+            })
+            updateContextualInventory()
+        }
     }
 });
 
 function updateContextualInventory() {
-    console.log("updating")
-    
+    console.log("Updating Contextual Inventory...")
+
     let mainView = document.getElementsByClassName("view-main")[0]
     maybeRemoveExistingItemList()
 
     // Handle pets
     let petsView = mainView.getElementsByClassName("page-on-center")[0]
-    if (petsView.getAttribute("data-page") === "pet") {
+    if (petsView != null && petsView.getAttribute("data-page") === "pet") {
         let petImage = petsView.getElementsByTagName('a')[0]
         let petId = new URLSearchParams(new URL(petImage.href).search).get("id")
         root.append(inventory(pets[petId]))
@@ -131,25 +131,10 @@ function restoreInventory() {
 
     root.append(title())
     root.append(updateInventoryButton())
-
-    // Wait for navigation to happen before updating inventory
-    setTimeout(function () {
-        updateContextualInventory()
-    }, navigationDelay+1000)
-}
-
-function registerUpdateContextualInventoryListener() {
-    document.addEventListener('click', function (event) {
-        // Wait for navigation to happen before updating inventory
-        setTimeout(
-            updateContextualInventory, navigationDelay
-        )
-    })
 }
 
 function init() {
     restoreInventory()
-    registerUpdateContextualInventoryListener()
 }
 
 if (document.readyState !== 'loading') {
