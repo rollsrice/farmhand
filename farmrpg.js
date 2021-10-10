@@ -227,6 +227,18 @@ var forest = [
     "Wood"
 ]
 
+let smallcave = [
+    "Bone",
+    "Grab Bag 02",
+    "Model Ship",
+    "Mushroom",
+    "Nails",
+    "Runestone 04",
+    "Stone",
+    "Wood",
+    "Wooden Mask",
+]
+
 var canepoleridge = [
     "Horned Beetle",
     "Iron",
@@ -300,6 +312,7 @@ let emberlagoon = [
 
 var explores = {
     "Forest": forest,
+    "Small Cave": smallcave,
     "Cane Pole Ridge": canepoleridge,
     "Misty Forest": mistyforest,
     "Mount Banon": mtbanon,

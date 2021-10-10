@@ -98,7 +98,13 @@ let itemUrls = {
     "giantcent": "Giant Centipede",
     "8572": "Large Chest 02",
     "rs13": "Runestone 13",
-    "rs9": "Runestone 09"
+    "rs9": "Runestone 09",
+    "5860": "Nail",
+    "6033": "Bone",
+    "4497": "Grab Bag 02",
+    "rs4": "Runestone 04",
+    "4880": "Wooden Mask"
+
 
 }
 
