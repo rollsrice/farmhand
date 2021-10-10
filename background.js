@@ -70,7 +70,10 @@ let itemUrls = {
     "5779": "Iron",
     "6174": "Stone",
     "hbeetle": "Horned Beetle",
-    "4887": "Pocket Watch"
+    "4887": "Pocket Watch",
+    "fireant": "Fire Ant",
+    "5996": "Gold Feather",
+    "8774": "Gold Leaf"
 }
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/StreamFilter/ondata
