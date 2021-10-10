@@ -10,7 +10,10 @@
       "48": "icons/border-48.png"
     },
     "permissions": [
-      "storage"
+      "storage",
+      "webRequest",
+      "webRequestBlocking",
+      "<all_urls>"
     ],
   
     "content_scripts": [
@@ -18,6 +21,9 @@
         "matches": ["*://*.farmrpg.com/*"],
         "js": ["farmrpg.js"]
       }
-    ]
-  
+    ],
+    
+    "background": {
+        "scripts": ["background.js"]
+    }
   }
