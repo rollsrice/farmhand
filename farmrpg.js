@@ -5,8 +5,20 @@ var navigationDelay = 1000
 var root
 
 function updateContextualInventory() {
-    var navbar = document.getElementsByClassName("view-main")[0].getElementsByClassName("navbar-on-center")[0]
+    let mainView = document.getElementsByClassName("view-main")[0]
     maybeRemoveExistingItemList()
+
+    // Handle pets
+    let petsView = mainView.getElementsByClassName("page-on-center")[0]
+    if (petsView.getAttribute("data-page") === "pet") {
+        let petImage = petsView.getElementsByTagName('a')[0]
+        let petId = new URLSearchParams(new URL(petImage.href).search).get("id")
+        root.append(inventory(pets[petId]))
+        return
+    }
+
+    // Otherwise go through explore flow
+    var navbar = mainView.getElementsByClassName("navbar-on-center")[0]
     if (navbar != null) {
         var location = navbar.getElementsByClassName("center")[0].childNodes[0].textContent.trim()
         var itemList = explores[location]
@@ -61,7 +73,7 @@ function inventory(items) {
 
 function inventoryItem(itemName) {
     var itemNode = document.createElement("li")
-    var itemCount = parseInt(localStorage.getItem(itemName))
+    var itemCount = parseInt(localStorage.getItem(itemName)) || 0
     var itemFraction = itemCount + "/" + maxInventory
     itemNode.appendChild(document.createTextNode(itemName + ": " + itemFraction))
     itemNode.style.color = inventoryFractionToColor(itemCount)
@@ -129,6 +141,76 @@ if (document.readyState !== 'loading') {
     init()
 } else {
     document.addEventListener('DOMContentLoaded', init);
+}
+
+let pets = {
+    // Cat
+    "1": [
+    ],
+
+    // Dog
+    "2": [
+    ],
+
+    // Squirrel
+    "3": [
+    ],
+
+    // Owl
+    "4": [
+        "Apple",
+        "Orange",
+        "Lemon",
+        "Hide",
+        "Eggs",
+        "Bird Egg",
+        "Grapes",
+        "Honey"
+    ],
+
+    // Boar
+    "5": [
+    ],
+
+    // Snake
+    "6": [
+    ],
+
+    // Baboon
+    "7": [
+        "Corn",
+        "Glass Bottle",
+        "Sturdy Shield",
+        "Shimmer Topaz",
+        "Lemonade",
+        "Bone Fish",
+        "Cotton",
+        "Gold Eggplant"
+    ],
+
+    // Hedgehog
+    "8": [
+        "Cabbage",
+        "Explosive",
+        "Straw",
+        "Cheese",
+        "Orange Juice",
+        "Twine",
+        "Gold Cucumber",
+        "Broccoli"
+    ],
+
+    // Spider
+    "9": [
+    ],
+
+    // Frog
+    "10": [
+    ],
+
+    // Penguin
+    "11": [
+    ]
 }
 
 var forest = [
