@@ -1,5 +1,5 @@
 // document.body.style.border = "5px solid red"
-var maxInventory = 890
+var maxInventory = 892
 var navigationDelay = 1000
 
 var root

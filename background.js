@@ -65,6 +65,12 @@ let itemUrls = {
     "5910": "Arrowhead",
     "5922": "Antler",
     "5986": "Hide",
+    "5798": "Lemon Quartz",
+    "5782": "Unpolished Shimmer Stone",
+    "5779": "Iron",
+    "6174": "Stone",
+    "hbeetle": "Horned Beetle",
+    "4887": "Pocket Watch"
 }
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/StreamFilter/ondata
