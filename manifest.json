@@ -1,29 +1,30 @@
 {
-
     "manifest_version": 2,
-    "name": "FarmRPG",
+    "name": "Farmhand",
     "version": "1.0",
-  
     "description": "Helpful scripts for FarmRPG",
-  
     "icons": {
-      "48": "icons/border-48.png"
+        "48": "icons/buddystone.png"
     },
     "permissions": [
-      "storage",
-      "webRequest",
-      "webRequestBlocking",
-      "<all_urls>"
+        "storage",
+        "webRequest",
+        "webRequestBlocking",
+        "<all_urls>"
     ],
-  
     "content_scripts": [
-      {
-        "matches": ["*://*.farmrpg.com/*"],
-        "js": ["farmrpg.js"]
-      }
+        {
+            "matches": [
+                "*://*.farmrpg.com/*"
+            ],
+            "js": [
+                "farmrpg.js"
+            ]
+        }
     ],
-    
     "background": {
-        "scripts": ["background.js"]
+        "scripts": [
+            "background.js"
+        ]
     }
-  }
+}
