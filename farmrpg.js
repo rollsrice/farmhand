@@ -1,5 +1,5 @@
 // document.body.style.border = "5px solid red"
-var maxInventory = 892
+var maxInventory = 958
 var navigationDelay = 1000
 let lastExploreExplore = 2
 
@@ -114,6 +114,7 @@ function inventoryFractionToColor(itemCount) {
 
 function updateInventoryCounts() {
     var page = document.getElementsByClassName("page-on-center")[0]
+    localStorage.clear()
     if (page.getAttribute("data-page") === "inventory") {
         var items = Array.from(page.getElementsByClassName("list-block")[0].getElementsByClassName("item-link"))
         items.forEach(item => {
