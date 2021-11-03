@@ -1,5 +1,5 @@
 // document.body.style.border = "5px solid red"
-var maxInventory = 958
+var maxInventory = 1090
 var navigationDelay = 1000
 let lastExploreExplore = 2
 
@@ -174,14 +174,50 @@ if (document.readyState !== 'loading') {
 let pets = {
     // Cat
     "1": [
+        "Blue Catfish",
+        "Blue Feathers",
+        "Blue Shell",
+        "Bluegill",
+        "Carp",
+        "Crappie",
+        "Drum",
+        "Feathers",
+        "Pearl",
+        "Gold Feather",
+        "Globber",
+        "Shinefish"
     ],
 
     // Dog
     "2": [
+        "Wood",
+        "Stone",
+        "Fish Bones",
+        "Bone",
+        "Unpolished Shimmer Stone",
+        "Horn",
+        "Antler",
+        "Rope",
+        "Amethyst",
+        "Cogwheel",
+        "Small Spring",
+        "Large Clam Shell"
     ],
 
     // Squirrel
     "3": [
+        "Mushroom",
+        "Fern Leaf",
+        "Purple Flower",
+        "Acorn",
+        "Arrowhead",
+        "Leather",
+        "Coin Purse",
+        "Ancient Coin",
+        "4-leaf Clover",
+        "Dice",
+        "Runestone 20",
+        "Gold Crab"
     ],
 
     // Owl
@@ -198,10 +234,34 @@ let pets = {
 
     // Boar
     "5": [
+        "Coal",
+        "Carbon Sphere",
+        "3-leaf Clover",
+        "Green Dye",
+        "Hammer",
+        "Axe",
+        "Shovel",
+        "Ladder",
+        "Steak",
+        "Steel",
+        "Moonstone",
+        "Jade",
     ],
 
     // Snake
     "6": [
+        "Iron",
+        "Hops",
+        "Glass Orb",
+        "Horseshoe",
+        "Bucket",
+        "Shimmer Quartz",
+        "Steel",
+        "Wizard Hat",
+        "Wine",
+        "Gold Carrot",
+        "Runestone 15",
+        "Skull Coin"
     ],
 
     // Baboon
@@ -230,15 +290,98 @@ let pets = {
 
     // Spider
     "9": [
+        "Cabbage",
+        "Explosive",
+        "Straw",
+        "Cheese",
+        "Orange Juice",
+        "Twine",
+        "Gold Cucumber",
+        "Broccoli",
+        "Runestone 07",
+        "Gold Peas",
+        "Green Shield",
+        "Tordch Fish"
     ],
 
     // Frog
     "10": [
+        "Peas",
+        "Cucumber",
+        "Hops",
+        "Cabbage",
+        "Green Chromis",
+        "Puffer",
+        "Green Jellyfish",
+        "Skipjack",
+        "Runestone 05",
+        "Gold Feather",
+        "Runestone 19",
+        "Gold Leaf"
     ],
 
     // Penguin
     "11": [
+        "Marlin",
+        "Skipjack",
+        "Seahorse",
+        "Octopus",
+        "Giant Squid",
+        "Blue Tiger Fish",
+        "Fluorofish",
+        "Barracuda",
+        "Swordfish",
+        "Sea Catfish",
+        "Serpent Eel",
+        "Ruby Coral"
+    ],
+
+
+    // Green Dragon
+    "12": [
+        "Runestone 01",
+        "Runestone 02",
+        "Runestone 03",
+        "Runestone 04",
+        "Runestone 05",
+        "Runestone 06",
+        "Runestone 07",
+        "Runestone 08",
+        "Runestone 09",
+        "Runestone 10",
+        "Runestone 11",
+        "Runestone 12"
+    ],
+
+    // Red Dragon
+    "13": [
+        "Green Cloak",
+        "Slimestone",
+        "Unpolished Garnet",
+        "Sour Root",
+        "Runestone 14",
+        "Runestone 16",
+        "Runestone 13",
+        "Lantern",
+        "Runestone 17",
+        "Runestone 18",
+        "Salt",
+        "Herbs"
+    ],
+
+    // Ring -tailed Lemur
+    "14": [
+        "Snail",
+        "Caterpillar",
+        "Fire Ant",
+        "Giant Centipede",
+        "Shiny Beetle",
+        "Horned Beetle",
+        "Spider",
+        "Amber"
+
     ]
+
 }
 
 var forest = [
