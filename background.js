@@ -110,9 +110,20 @@ let itemUrls = {
     "6033": "Bone",
     "4497": "Grab Bag 02",
     "rs4": "Runestone 04",
-    "4880": "Wooden Mask"
-
-
+    "4880": "Wooden Mask",
+    "ForestIcons_34_t": "Blue Gel",
+    "8251": "Lemon",
+    "5655": "Slimestone",
+    "8297": "Apple",
+    "6005": "Striped Feather",
+    "saltrock": "Salt Rock",
+    "6695": "Oak",
+    "ForestIcons_11_t": "Sour Root",
+    "8030": "Unpolished Garnet",
+    "ForestIcons_15_t": "Thorns",
+    "ForestIcons_46_t": "Red Berries",
+    "orange": "Orange",
+    "5686": "Herbs"
 }
 
 // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/webRequest/StreamFilter/ondata

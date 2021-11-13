@@ -1,5 +1,5 @@
 // document.body.style.border = "5px solid red"
-var maxInventory = 1090
+var maxInventory = 50
 var navigationDelay = 1000
 let lastExploreExplore = 2
 
@@ -13,7 +13,7 @@ browser.runtime.onMessage.addListener(request => {
     } else if (request.event === "updateInventory") {
         if (request.items != null) {
             request.items.forEach((count, item) => {
-                let amount = parseInt(localStorage.getItem(item))
+                let amount = parseInt(localStorage.getItem(item)) || 0
                 localStorage.setItem(item, Math.min(amount + count, maxInventory))
             })
             updateContextualInventory()
@@ -103,7 +103,10 @@ function inventoryItem(itemName) {
 
 function inventoryFractionToColor(itemCount) {
     color = "White"
-    if (itemCount / maxInventory >= 0.5) {
+    if (itemCount / maxInventory >= 0.33) {
+        color = "LightPink"
+    }
+    if (itemCount / maxInventory >= 0.67) {
         color = "LightSalmon"
     }
     if (itemCount === maxInventory) {
@@ -122,6 +125,11 @@ function updateInventoryCounts() {
             var itemCount = parseInt(item.getElementsByClassName("item-after")[0].textContent)
             localStorage.setItem(itemName, itemCount)
         })
+
+        // Update max inventory
+        let maxItemCountStr = page.getElementsByClassName("card-content-inner")[1].getElementsByTagName("strong")[0].textContent
+        let maxItemCount = parseInt(maxItemCountStr.replace(/\D/g,''))
+        maxInventory = Math.max(maxInventory, parseInt(maxItemCount))
     } else {
         console.log("Not on inventory page")
     }
@@ -229,7 +237,11 @@ let pets = {
         "Eggs",
         "Bird Egg",
         "Grapes",
-        "Honey"
+        "Honey",
+        "Prism Shard",
+        "Gold Cucumber",
+        "Runestone 11",
+        "Goldfish"
     ],
 
     // Boar
@@ -273,7 +285,11 @@ let pets = {
         "Lemonade",
         "Bone Fish",
         "Cotton",
-        "Gold Eggplant"
+        "Gold Eggplant",
+        "Grape Juice",
+        "Runestone 03",
+        "Gold Peppers",
+        "Redgill"
     ],
 
     // Hedgehog
@@ -285,23 +301,27 @@ let pets = {
         "Orange Juice",
         "Twine",
         "Gold Cucumber",
-        "Broccoli"
-    ],
-
-    // Spider
-    "9": [
-        "Cabbage",
-        "Explosive",
-        "Straw",
-        "Cheese",
-        "Orange Juice",
-        "Twine",
-        "Gold Cucumber",
         "Broccoli",
         "Runestone 07",
         "Gold Peas",
         "Green Shield",
-        "Tordch Fish"
+        "Torch Fish"
+    ],
+
+    // Spider
+    "9": [
+        "Eggplant",
+        "Amethyst",
+        "Emberstone",
+        "Giant Centipede",
+        "Ruby Ring",
+        "Emerald Ring",
+        "Mystic Ring",
+        "Shimmer Ring",
+        "Runestone 05",
+        "Runestone 10",
+        "Runestone 15",
+        "Runestone 20"
     ],
 
     // Frog
@@ -328,7 +348,7 @@ let pets = {
         "Octopus",
         "Giant Squid",
         "Blue Tiger Fish",
-        "Fluorofish",
+        "Fluorifish",
         "Barracuda",
         "Swordfish",
         "Sea Catfish",
@@ -378,8 +398,10 @@ let pets = {
         "Shiny Beetle",
         "Horned Beetle",
         "Spider",
-        "Amber"
-
+        "Amber",
+        "Dragonfly",
+        "Cyclops Spider",
+        "Grasshopper"
     ]
 
 }
@@ -451,7 +473,8 @@ var mtbanon = [
     "Small Chest 02",
     "Stone",
     "Unpolished Emerald",
-    "Unpolished Shimmer Stone"
+    "Unpolished Shimmer Stone",
+    "Dragon Skull"
 ]
 
 let blackrockcanyon = [
@@ -464,7 +487,8 @@ let blackrockcanyon = [
     "Runestone 09",
     "Runestone 13",
     "Sandstone",
-    "Shimmer Quartz"
+    "Shimmer Quartz",
+    "Ruby Scorpion"
 ]
 
 let emberlagoon = [
@@ -480,6 +504,23 @@ let emberlagoon = [
     "Stone"
 ]
 
+let whisperingcreek =[
+    "Apple",
+    "Orange",
+    "Lemon",
+    "Slimestone",
+    "Oak",
+    "Salt Rock",
+    "Blue Gel",
+    "Unpolished Garnet",
+    "Red Berries",
+    "Striped Feather",
+    "Thorns",
+    "Sour Root",
+    "Raptor Claw",
+    "Herbs"
+]
+
 var explores = {
     "Forest": forest,
     "Small Cave": smallcave,
@@ -487,5 +528,6 @@ var explores = {
     "Misty Forest": mistyforest,
     "Mount Banon": mtbanon,
     "Ember Lagoon": emberlagoon,
-    "Black Rock Canyon": blackrockcanyon
+    "Black Rock Canyon": blackrockcanyon,
+    "Whispering Creek": whisperingcreek
 }
